@@ -308,10 +308,82 @@ public class HealthMonitorSystem {
         }
     }
 
+//    private static void viewHealthSummary(String username) {
+//        int totalCaloriesConsumed = 0;
+//        int totalCaloriesBurned = 0;
+//        int totalSleepHours = 0;
+//        int sleepRecordsCount = 0;
+//        int cardioExercises = 0;
+//        int strengthTrainingExercises = 0;
+//
+//        try (Scanner scanner = new Scanner(new File(DATA_DIRECTORY + File.separator + CALORIE_INTAKE_FILE))) {
+//            while (scanner.hasNextLine()) {
+//                String line = scanner.nextLine();
+//                String[] parts = line.split(",");
+//                String recordUsername = parts[0];
+//                int calories = Integer.parseInt(parts[2]);
+//
+//                if (recordUsername.equals(username)) {
+//                    totalCaloriesConsumed += calories;
+//                }
+//            }
+//        } catch (FileNotFoundException e) {
+//            System.out.println("Error reading calorie intake file: " + e.getMessage());
+//        }
+//
+//        try (Scanner scanner = new Scanner(new File(DATA_DIRECTORY + File.separator + EXERCISE_FILE))) {
+//            while (scanner.hasNextLine()) {
+//                String line = scanner.nextLine();
+//                String[] parts = line.split(",");
+//                String recordUsername = parts[0];
+//                int caloriesBurned = Integer.parseInt(parts[3]);
+//                String exerciseType = parts[1];
+//
+//                if (recordUsername.equals(username)) {
+//                    totalCaloriesBurned += caloriesBurned;
+//
+//                    if (exerciseType.equalsIgnoreCase("cardio")) {
+//                        cardioExercises++;
+//                    } else if (exerciseType.equalsIgnoreCase("strength training")) {
+//                        strengthTrainingExercises++;
+//                    }
+//                }
+//            }
+//        } catch (FileNotFoundException e) {
+//            System.out.println("Error reading exercise file: " + e.getMessage());
+//        }
+//
+//        try (Scanner scanner = new Scanner(new File(DATA_DIRECTORY + File.separator + SLEEP_FILE))) {
+//            while (scanner.hasNextLine()) {
+//                String line = scanner.nextLine();
+//                String[] parts = line.split(",");
+//                String recordUsername = parts[0];
+//                int sleepDuration = Integer.parseInt(parts[3]);
+//
+//                if (recordUsername.equals(username)) {
+//                    totalSleepHours += sleepDuration;
+//                    sleepRecordsCount++;
+//                }
+//            }
+//        } catch (FileNotFoundException e) {
+//            System.out.println("Error reading sleep file: " + e.getMessage());
+//        }
+//
+//        int averageSleepHours = (sleepRecordsCount > 0) ? totalSleepHours / sleepRecordsCount : 0;
+//
+//        System.out.println("Health Summary for " + username);
+//        System.out.println("Total Calories Consumed: " + totalCaloriesConsumed);
+//        System.out.println("Total Calories Burned: " + totalCaloriesBurned);
+//        System.out.println("Total Sleep Hours: " + totalSleepHours);
+//        System.out.println("Average Sleep Hours: " + averageSleepHours);
+//        System.out.println("Cardio Exercises: " + cardioExercises);
+//        System.out.println("Strength Training Exercises: " + strengthTrainingExercises);
+//    }
+
     private static void viewHealthSummary(String username) {
         int totalCaloriesConsumed = 0;
         int totalCaloriesBurned = 0;
-        int totalSleepHours = 0;
+        int totalSleepMinutes = 0;
         int sleepRecordsCount = 0;
         int cardioExercises = 0;
         int strengthTrainingExercises = 0;
@@ -358,10 +430,10 @@ public class HealthMonitorSystem {
                 String line = scanner.nextLine();
                 String[] parts = line.split(",");
                 String recordUsername = parts[0];
-                int sleepDuration = Integer.parseInt(parts[3]);
+                int sleepDuration = Integer.valueOf(parts[3]);
 
                 if (recordUsername.equals(username)) {
-                    totalSleepHours += sleepDuration;
+                    totalSleepMinutes += sleepDuration;
                     sleepRecordsCount++;
                 }
             }
@@ -369,6 +441,7 @@ public class HealthMonitorSystem {
             System.out.println("Error reading sleep file: " + e.getMessage());
         }
 
+        int totalSleepHours = totalSleepMinutes / 60;
         int averageSleepHours = (sleepRecordsCount > 0) ? totalSleepHours / sleepRecordsCount : 0;
 
         System.out.println("Health Summary for " + username);

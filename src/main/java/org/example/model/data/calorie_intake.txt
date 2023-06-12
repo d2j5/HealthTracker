@@ -1,3 +1,4 @@
 javier,chicken,100,2023-06-12
 javier,bread,150,2023-06-12
 alex,chicken,100,2023-06-12
+alex,aaa,100,2023-06-12
